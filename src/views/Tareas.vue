@@ -40,41 +40,23 @@
                     </div>
                 </div>
             </section>
-             <!-- pintar tareas -->
-        <section>
-       
-            <div 
-                v-for="(item, index) in tareas "
+            <gestor-tareas  v-bind:tareas="tareas"
+                v-for="(item, index) in tareas" 
                 :key="index"
-                :class="['row', 'alert', 'text-center', 'align-items-center', item.estado? 'alert-primary' : 'alert-warning']"
-                role="alert">
-                <div class="col-12 col-md-4">
-                    <span>
-                        {{item.nombre}}
-                    </span>
-                </div>
-                <div class="col-12 col-md-4">
-                    <span>
-                        {{item.estado? 'Realizada' : 'Pendiente'}}
-                    </span>
-
-                </div>
-                <div class="col-12 col-md-4">
-                    <button 
-                        class="btn btn-success btn-sm" 
-                        @click="cambiarEstado(index)">Cambiar estado</button>
-                    <button 
-                       class="btn btn-danger btn-sm" 
-                       @click="eliminarNota(index)">Eliminar</button>
-                </div>
-            </div>
-        </section>
+                :item="item"
+                v-bind:index="index"
+                v-on:cambiar="cambiarEstado"
+                @eliminar="eliminarNota"/>
         </main>
     </div>
 </template>
 
 <script>
+
+import GestorTareas from '../components/GestorTareas.vue';
+
 export default {
+    components: { GestorTareas },
     name:'Tareas',
     data(){
         return{
